@@ -2,9 +2,10 @@ import React from 'react';
 import { gql } from '@apollo/client/core';
 import { Pokemon } from './Pokemon';
 import { useQuery } from '@apollo/client';
+import { GetPikachuQuery } from './__generated__/graphql-types';
 
-const pikachuQuery = gql`
-  query pikachu {
+const query = gql`
+  query GetPikachu {
     pokemon(name: "pikachu") {
       name
       image
@@ -13,11 +14,17 @@ const pikachuQuery = gql`
 `;
 
 export function ManualPikachu() {
-  const { data, loading } = useQuery(pikachuQuery);
-
+  const { data, loading } = useQuery<GetPikachuQuery>(
+    query,
+  );
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  return <Pokemon name={data.pokemon.name} imageSrc={data.pokemon.image} />;
+  return (
+    <Pokemon
+      name={data!.pokemon!.name!}
+      imageSrc={data!.pokemon!.image!}
+    />
+  );
 }

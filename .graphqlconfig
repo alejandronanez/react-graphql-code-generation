@@ -1,0 +1,4 @@
+{
+  "name": "Pokemon API",
+  "schemaPath": "src/__generated__/graphql.schema.json"
+}
